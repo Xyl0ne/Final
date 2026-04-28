@@ -7,9 +7,18 @@ export function AuthProvider({ children }) {
     const [token, setToken] = useState(localStorage.getItem('token'));
 
     useEffect(() => {
-        // Load user from localStorage on startup
         const savedUser = localStorage.getItem('user');
-        if (savedUser) setUser(JSON.parse(savedUser));
+
+        // 1. Check if it exists
+        // 2. Check if it's not the literal string "undefined"
+        if (savedUser && savedUser !== "undefined") {
+            try {
+                setUser(JSON.parse(savedUser));
+            } catch (error) {
+                console.error("Failed to parse user from localStorage:", error);
+                localStorage.removeItem('user'); // Clean up bad data
+            }
+        }
     }, []);
 
     const login = (userData, tokenData) => {

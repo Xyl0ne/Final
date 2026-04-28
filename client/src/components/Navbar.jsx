@@ -24,7 +24,11 @@ export default function Navbar() {
     };
 
     return (
-        <AppBar position='fixed' sx={{ bgcolor: 'background.paper' }}>
+        <AppBar position='fixed' sx={{ 
+            bgcolor: 'background.paper',
+            boxShadow: '0px 0px 40px rgba(210, 214, 227, 0.2)',
+            borderBottom: "2px solid rgba(39, 39, 40, 0.2)"
+         }}>
             <Toolbar>
                 {/* Logo */}
                 <Typography

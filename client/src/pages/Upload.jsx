@@ -38,7 +38,12 @@ export default function Upload() {
         e.preventDefault();
         setError('');
         try {
-            const { data } = await API.post('/videos', form);
+            const token = localStorage.getItem('token');
+            const { data } = await API.post('/videos', form, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
             navigate(`/watch/${data._id}`);
         } catch (err) {
             setError(err.response?.data?.error || 'Upload failed');

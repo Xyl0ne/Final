@@ -27,11 +27,11 @@ export default function LikeDislike({ video, setVideo }) {
     return (
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
             <IconButton onClick={() => handleAction('like')}>
-                {liked ? <ThumbUpIcon color='primary' /> : <ThumbUpOutlinedIcon />}
+                {liked ? <ThumbUpIcon color='secondary' /> : <ThumbUpOutlinedIcon color="secondary" />}
             </IconButton>
             <Typography>{video.likes.length}</Typography>
             <IconButton onClick={() => handleAction('dislike')}>
-                {disliked ? <ThumbDownIcon color='error' /> : <ThumbDownOutlinedIcon />}
+                {disliked ? <ThumbDownIcon color='error' /> : <ThumbDownOutlinedIcon color="secondary" />}
             </IconButton>
             <Typography>{video.dislikes.length}</Typography>
         </Box>

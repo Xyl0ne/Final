@@ -1,3 +1,4 @@
+import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
@@ -7,6 +8,7 @@ import Box from '@mui/material/Box';
 
 export default function VideoCard({ video }) {
     const navigate = useNavigate();
+    const [isHovering, setIsHovering] = useState(false);
 
     // Format relative time (e.g., '3 days ago')
     const timeAgo = (date) => {
@@ -26,29 +28,66 @@ export default function VideoCard({ video }) {
         return 'Just now';
     };
 
+    const handleMouseEnter = () => {
+        setIsHovering(true);
+    };
+
+    const handleMouseLeave = () => {
+        setIsHovering(false);
+    };
+
     return (
         <Card
             sx={{
+                width: '300px',
                 cursor: 'pointer',
                 bgcolor: 'background.paper',
                 boxShadow: 'none',
                 '&:hover': { opacity: 0.9 },
+                border: "2px solid #676666",
+                boxShadow: '1px 1px 20px rgba(210, 214, 227, 0.2)'
             }}
             onClick={() => navigate(`/watch/${video._id}`)}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
         >
-            <CardMedia
-                component='img'
-                image={video.thumbnail}
-                alt={video.title}
-                sx={{ aspectRatio: '16/9', borderRadius: 2 }}
-            />
-            <CardContent sx={{ px: 0, pt: 1 }}>
+            <Box sx={{ position: 'relative', aspectRatio: '16/9', overflow: 'hidden' }}>
+                <CardMedia
+                    component='img'
+                    image={video.thumbnail}
+                    alt={video.title}
+                    sx={{ aspectRatio: '16/9', borderRadius: 2, width: '100%', height: '100%' }}
+                />
+                {isHovering && (
+                    <iframe
+                        width="100%"
+                        height="100%"
+                        src={`https://www.youtube.com/embed/${video.videoId}?autoplay=1&mute=1&controls=0&modestbranding=1&rel=0&showinfo=0`}
+                        title={video.title}
+                        frameBorder="0"
+                        allow="autoplay; encrypted-media"
+                        allowFullScreen
+                        style={{
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            borderRadius: 8,
+                            width: '100%',
+                            height: '100%'
+                        }}
+                    />
+                )}
+            </Box>
+            <CardContent sx={{ px: 0, pt: 1, pl: 2 }}>
                 <Typography variant='subtitle1' fontWeight='bold' noWrap>
                     {video.title}
                 </Typography>
-                <Typography variant='body2' color='text.secondary'>
-                    {video.username}
-                </Typography>
+                <Box>
+                    <Typography variant='body2' color='text.secondary'>
+                        {video.username}
+                    </Typography>
+                </Box>
+
                 <Typography variant='body2' color='text.secondary'>
                     {video.views} views · {timeAgo(video.createdAt)}
                 </Typography>

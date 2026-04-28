@@ -49,10 +49,10 @@ export default function Watch() {
     if (!video) return <Typography sx={{ m: 4 }}>Video not found</Typography>;
 
     return (
-        <Box sx={{ px: 3, py: 2 }}>
-            <Grid container spacing={3}>
+        <Box sx={{ px: 3, py: 2, mt: 4 }}>
+            <Box sx={{ display: 'flex'}}>
                 {/* Main Video Column */}
-                <Grid item xs={12} md={8}>
+                <Box sx={{ flex: 1, mr: 4 }}>
                     {/* YouTube Player */}
                     <Box sx={{
                         position: 'relative',
@@ -71,6 +71,8 @@ export default function Watch() {
                                 width: '100%', height: '100%',
                                 border: 'none',
                             }}
+                            autoPlay = {true}
+                            width={300}
                         />
                     </Box>
 
@@ -85,7 +87,7 @@ export default function Watch() {
                         <Typography color='text.secondary'>
                             {video.views} views
                         </Typography>
-                        <LikeDislike video={video} setVideo={setVideo} />
+                        <LikeDislike video={video} setVideo={setVideo} color="secondary" />
                     </Box>
 
                     {/* Channel Info */}
@@ -112,20 +114,18 @@ export default function Watch() {
 
                     {/* Comments */}
                     <CommentSection videoId={id} />
-                </Grid>
+                </Box>
 
                 {/* Suggested Videos Sidebar */}
                 <Grid item xs={12} md={4}>
-                    <Typography variant='h6' sx={{ mb: 2 }}>
-                        Suggested Videos
-                    </Typography>
+                    
                     {suggested.map((v) => (
                         <Box key={v._id} sx={{ mb: 2 }}>
                             <VideoCard video={v} />
                         </Box>
                     ))}
                 </Grid>
-            </Grid>
+            </Box>
         </Box>
     );
 }
