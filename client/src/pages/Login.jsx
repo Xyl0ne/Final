@@ -30,7 +30,10 @@ export default function Login() {
 
     return (
         <Box sx={{ display: 'flex', justifyContent: 'center', mt: 8 }}>
-            <Paper sx={{ p: 4, width: 400 }}>
+            <Paper sx={{ p: 4, width: 500,
+                boxShadow: '0px 0px 50px rgba(210, 214, 227, 0.2)',
+                border: "2px solid rgba(121, 121, 124, 0.2)"
+             }}>
                 <Typography variant='h5' gutterBottom
                 sx={{
                     color: 'secondary.main'

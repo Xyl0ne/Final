@@ -10,6 +10,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
+import Avatar from '@mui/material/Avatar';
 
 export default function Watch() {
     const { id } = useParams();
@@ -97,12 +98,21 @@ export default function Watch() {
                         mt: 2, py: 2,
                         borderTop: 1, borderBottom: 1, borderColor: 'divider',
                     }}>
-                        <Box>
-                            <Typography variant='subtitle1' fontWeight='bold'>
+                        <Box sx={{
+                            display: 'flex', alignItems: 'center', gap: 2
+                        }}>
+                            <Avatar
+                                sx={{  bgcolor: 'red' }}
+                            >
+                                {video.username.charAt(0).toUpperCase()}
+                            </Avatar>
+                            <Typography>
                                 {video.username}
                             </Typography>
                         </Box>
-                        <Button variant='contained' color='primary'>
+                        <Button variant='contained' color='primary' sx={{
+                            bgcolor: 'background.paper'
+                        }}>
                             Subscribe
                         </Button>
                     </Box>
@@ -113,7 +123,9 @@ export default function Watch() {
                     </Box>
 
                     {/* Comments */}
-                    <CommentSection videoId={id} />
+                    <CommentSection videoId={id} sx={{
+                        bgcolor: 'background.paper'
+                    }} />
                 </Box>
 
                 {/* Suggested Videos Sidebar */}

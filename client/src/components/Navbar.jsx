@@ -10,6 +10,7 @@ import InputBase from '@mui/material/InputBase';
 import Box from '@mui/material/Box';
 import SearchIcon from '@mui/icons-material/Search';
 import VideoCallIcon from '@mui/icons-material/VideoCall';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 export default function Navbar() {
     const [searchQuery, setSearchQuery] = useState('');
@@ -36,7 +37,7 @@ export default function Navbar() {
                     sx={{ cursor: 'pointer', color: 'secondary.main', fontWeight: 'bold' }}
                     onClick={() => navigate('/')}
                 >
-                    MyTube
+                    Youtube
                 </Typography>
 
                 {/* Search Bar */}
@@ -55,7 +56,7 @@ export default function Navbar() {
                     />
                     <IconButton type='submit'
                         sx={{ bgcolor: 'background.default', borderRadius: '0 20px 20px 0' }}>
-                        <SearchIcon />
+                        <SearchIcon color='secondary.main'/>
                     </IconButton>
                 </Box>
 
@@ -67,7 +68,7 @@ export default function Navbar() {
                         </IconButton>
                         <Button color='inherit'
                             onClick={() => navigate(`/profile/${user.id}`)}>
-                            {user.username}
+                            <AccountCircleIcon/>
                         </Button>
                         <Button color='inherit' onClick={logout}>Logout</Button>
                     </Box>

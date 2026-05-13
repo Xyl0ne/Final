@@ -51,15 +51,20 @@ export default function Upload() {
     };
 
     return (
-        <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
-            <Paper sx={{ p: 4, width: 600 }}>
+        <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4, }}>
+            <Paper sx={{ p: 4, width: 600,
+                boxShadow: '0px 0px 50px rgba(210, 214, 227, 0.2)',
+                border: "2px solid rgba(121, 121, 124, 0.2)"
+             }}>
                 <Typography variant='h5' gutterBottom>Upload Video</Typography>
                 {error && <Alert severity='error' sx={{ mb: 2 }}>{error}</Alert>}
 
                 <Box component='form' onSubmit={handleSubmit}>
                     <TextField fullWidth label='YouTube URL' margin='normal'
                         value={form.youtubeUrl} onChange={handleUrlChange}
-                        placeholder='https://www.youtube.com/watch?v=...' />
+                        placeholder='https://www.youtube.com/watch?v=...'
+                        color='secondary' 
+                        />
 
                     {/* Thumbnail Preview */}
                     {preview && (
@@ -71,13 +76,13 @@ export default function Upload() {
 
                     <TextField fullWidth label='Title' margin='normal'
                         value={form.title}
-                        onChange={(e) => setForm({ ...form, title: e.target.value })} />
+                        onChange={(e) => setForm({ ...form, title: e.target.value })} color='secondary'/>
 
-                    <TextField fullWidth label='Description' margin='normal'
+                    <TextField color='secondary' fullWidth label='Description' margin='normal'
                         multiline rows={3} value={form.description}
                         onChange={(e) => setForm({ ...form, description: e.target.value })} />
 
-                    <TextField fullWidth select label='Category' margin='normal'
+                    <TextField color='secondary' fullWidth select label='Category' margin='normal'
                         value={form.category}
                         onChange={(e) => setForm({ ...form, category: e.target.value })}>
                         {CATEGORIES.map((cat) => (

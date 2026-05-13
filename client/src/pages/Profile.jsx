@@ -66,10 +66,10 @@ const Profile = () => {
     return (
         <Box sx={{ px: 3, py: 2 }}>
             {/* Profile Header */}
-            <Paper sx={{ p: 3, mb: 3 }}>
+            <Paper sx={{ p: 3, mb: 3, }}>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                     <Avatar
-                        sx={{ width: 80, height: 80, bgcolor: 'primary.main' }}
+                        sx={{ width: 80, height: 80, bgcolor: 'red' }}
                     >
                         {profileData.user.username.charAt(0).toUpperCase()}
                     </Avatar>

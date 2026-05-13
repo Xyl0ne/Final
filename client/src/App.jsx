@@ -10,7 +10,7 @@ import History from './pages/History';
 import Subscriptions from './pages/Subscriptions';
 import SearchResults from './pages/SearchResults';
 import Box from '@mui/material/Box';
-
+import './App.css';
 function App() {
   return (
     <Box sx={{ bgcolor: 'background.default', minHeight: '100vh' }}>

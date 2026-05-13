@@ -5,6 +5,7 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import Avatar from '@mui/material/Avatar';
 
 export default function VideoCard({ video }) {
     const navigate = useNavigate();
@@ -82,7 +83,18 @@ export default function VideoCard({ video }) {
                 <Typography variant='subtitle1' fontWeight='bold' noWrap>
                     {video.title}
                 </Typography>
-                <Box>
+                <Box sx={{
+                    display:'flex',
+                    alignItems: 'center',
+                    gap: 1,
+                    
+                }}>
+                    <Avatar sx={{
+                        bgcolor: 'red',
+                        fontSize: '15px',
+                    }}>
+                        {video.username.charAt(0).toUpperCase()}
+                    </Avatar>
                     <Typography variant='body2' color='text.secondary'>
                         {video.username}
                     </Typography>
