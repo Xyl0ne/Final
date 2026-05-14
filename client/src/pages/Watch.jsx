@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import API from '../api/axios';
 import { useAuth } from '../context/AuthContext';
 import LikeDislike from '../components/LikeDislike';
@@ -18,6 +18,7 @@ export default function Watch() {
     const [video, setVideo] = useState(null);
     const [suggested, setSuggested] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [subscribed, setSubscribed] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -26,6 +27,17 @@ export default function Watch() {
                 // Fetch video data
                 const { data: videoData } = await API.get(`/videos/${id}`);
                 setVideo(videoData);
+
+                // Check subscription status if logged in
+                if (user) {
+                    try {
+                        const { data: subData } = await API.get(`/users/${videoData.userId}/check-subscription`);
+                        setSubscribed(subData.subscribed);
+                    } catch (checkErr) {
+                        console.error('Subscription check failed:', checkErr);
+                        setSubscribed(false);
+                    }
+                }
 
                 // Increment view count
                 await API.post(`/videos/${id}/view`);
@@ -46,7 +58,7 @@ export default function Watch() {
             setLoading(false);
         };
         fetchData();
-    }, [id]);
+    }, [id, user]);
     if (!video) return <Typography sx={{ m: 4 }}>Video not found</Typography>;
 
     return (
@@ -106,14 +118,26 @@ export default function Watch() {
                             >
                                 {video.username.charAt(0).toUpperCase()}
                             </Avatar>
-                            <Typography>
+                            <Typography component={Link} to={`/profile/${video.userId}`} sx={{ textDecoration: 'none', color: 'inherit', fontWeight: 'bold' }}>
                                 {video.username}
                             </Typography>
                         </Box>
-                        <Button variant='contained' color='primary' sx={{
-                            bgcolor: 'background.paper'
-                        }}>
-                            Subscribe
+                        <Button
+                            variant='contained'
+                            color={subscribed ? 'secondary' : 'primary'}
+                            sx={{ bgcolor: 'background.paper' }}
+                            disabled={!user}
+                            onClick={async () => {
+                                if (!user) return;
+                                try {
+                                    const { data } = await API.post(`/users/${video.userId}/subscribe`);
+                                    setSubscribed(data.subscribed);
+                                } catch (err) {
+                                    console.error('Subscribe request failed:', err);
+                                }
+                            }}
+                        >
+                            {user ? (subscribed ? 'Subscribed' : 'Subscribe') : 'Sign in to subscribe'}
                         </Button>
                     </Box>
 
